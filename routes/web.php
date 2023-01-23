@@ -25,11 +25,20 @@ Route::group(['prefix' => ''], static function () {
     Route::get('/admin', [AdminIndexController::class, 'index'])
         ->name('admin');
 
-    Route::get('/admin/test1', [AdminIndexController::class, 'test1'])
-        ->name('admin.test1');
+    Route::get('/admin/home', [AdminIndexController::class, 'home'])
+        ->name('admin.home');
 
-    Route::get('/admin/test2', [AdminIndexController::class, 'test2'])
-        ->name('admin.test2');
+    Route::get('/admin/categories', [AdminIndexController::class, 'categories'])
+        ->name('admin.categories');
+
+    Route::get('/admin/news', [AdminIndexController::class, 'news'])
+        ->name('admin.news');
+
+    Route::get('/admin/users', [AdminIndexController::class, 'users'])
+        ->name('admin.users');
+
+    Route::get('/admin/about', [AdminIndexController::class, 'about'])
+        ->name('admin.about');
 });
 
 Route::view('about', 'about')

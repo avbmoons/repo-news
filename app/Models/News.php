@@ -21,7 +21,7 @@ class News
         $news = [];
         $quantityNews = 20;
 
-        for ($i = 1; $i < $quantityNews; $i++) {
+        for ($i = 1; $i <= $quantityNews; $i++) {
             $news[$i] = [
                 'id' => $i,
                 'category_id' => \random_int(1, 5),
