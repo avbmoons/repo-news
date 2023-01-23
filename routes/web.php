@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,22 +17,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
+
+Route::group(['prefix' => ''], static function () {
+
+    Route::get('/admin', [AdminIndexController::class, 'index'])
+        ->name('admin');
+
+    Route::get('/admin/test1', [AdminIndexController::class, 'test1'])
+        ->name('admin.test1');
+
+    Route::get('/admin/test2', [AdminIndexController::class, 'test2'])
+        ->name('admin.test2');
 });
 
-Route::get('/hello/{name}', static function (string $name): string {
-    return "Hello, {$name}";
+Route::view('about', 'about')
+    ->name('about');
+
+
+Route::group(['prefix' => ''], static function () {
+
+    Route::get('/news', [NewsController::class, 'index'])
+        ->name('news');
+
+    Route::get('/news/one/{id}', [NewsController::class, 'show'])
+        ->where(name: 'id', expression: '\d+')->name("newsId");
 });
 
-Route::get('/info/{project}', static function (string $project): string {
-    return "About {$project}";
-});
+Route::group(['prefix' => ''], static function () {
 
-Route::get('/news', static function (): string {
-    return "Some news about ";
-});
+    Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('category.index');
 
-Route::get('/news/{id}', static function (int $id): string {
-    return "News with #ID {$id} ";
+    Route::get('/category/{slug}', [CategoryController::class, 'show'])
+        ->where(name: 'category_id', expression: '\d+')->name("category.show");
 });
