@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Forms\MailController as MailController;
+use App\Http\Controllers\Forms\OrderController as OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
@@ -20,21 +25,33 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-Route::group(['prefix' => ''], static function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
 
-    Route::get('/admin', [AdminIndexController::class, 'index'])
+    Route::get('/', [AdminIndexController::class, 'index'])
         ->name('admin');
 
-    Route::get('/admin/test1', [AdminIndexController::class, 'test1'])
-        ->name('admin.test1');
+    Route::get('/home', [AdminIndexController::class, 'home'])
+        ->name('admin.home');
 
-    Route::get('/admin/test2', [AdminIndexController::class, 'test2'])
-        ->name('admin.test2');
+    Route::resource('categories', AdminCategoryController::class);
+
+    Route::resource('news', AdminNewsController::class);
+
+    Route::get('/users', [AdminIndexController::class, 'users'])
+        ->name('admin.users');
+
+    Route::get('/about', [AdminIndexController::class, 'about'])
+        ->name('admin.about');
 });
+Route::group(['prefix' => 'about'], static function () {
 
-Route::view('about', 'about')
-    ->name('about');
+    Route::get('/', [AboutController::class, 'index'])
+        ->name('about');
 
+    Route::resource('mail', MailController::class);
+
+    Route::resource('order', OrderController::class);
+});
 
 Route::group(['prefix' => ''], static function () {
 

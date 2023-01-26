@@ -1,20 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Forms;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class CategoryController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        return \view('admin.categories.index');
+        return \view('forms.order.index');
     }
 
     /**
@@ -22,9 +24,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return \view('forms.order.create');
     }
 
     /**
@@ -35,7 +37,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'username' => 'required',
+            'useremail' => 'required',
+            'orderinfo' => 'required',
+        ]);
+
+        $filename = 'fileorder.json';
+        $response = response()->json($request->only(['username', 'useremail', 'orderinfo']));
+        Storage::disk('local')->append($filename, $response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        return redirect()->route('about');
     }
 
     /**
