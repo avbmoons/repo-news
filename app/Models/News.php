@@ -2,47 +2,29 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\NewsTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
-class News
+class News extends Model
 {
-    use NewsTrait;
-    private Category $category;
+    use HasFactory;
 
-    public function __construct(Category $category)
+    protected $table = 'news';
+
+    //public function getNews(): array
+    public function getNews(): Collection
     {
-        $this->category = $category;
+        //return DB::select("select id, title, author, status, description, created_at from {$this->table}");
+        return DB::table($this->table)->select(['id', 'title', 'author', 'status', 'description', 'created_at', 'source_id'])->get();
     }
 
-
-
-    public static function newsGen(): array
+    public function getNewsById(int $id): mixed
     {
-        $news = [];
-        $quantityNews = 20;
-
-        for ($i = 1; $i <= $quantityNews; $i++) {
-            $news[$i] = [
-                'id' => $i,
-                'category_id' => \random_int(1, 5),
-                'title' => \fake()->jobTitle(),
-                'description' => \fake()->text(100),
-                'author' => \fake()->userName(),
-                'created_at' => \now()->format('d-m-Y H:i'),
-            ];
-        }
-        return $news;
-    }
-
-    public function getNewsByCategorySlug($slug): array
-    {
-        $id = $this->category->getCategoryIdBySlug($slug);
-        $news = [];
-        foreach ($this->getNews() as $item) {
-            if ($item['category_id'] == $id) {
-                $news[] = $item;
-            }
-        }
-        return $news;
+        //return DB::selectOne("select id, title, author, status, description, created_at from {$this->table} where id = :id", [
+        //  'id' => $id
+        //]);
+        return DB::table($this->table)->find($id, ['id', 'title', 'author', 'source_id']);
     }
 }

@@ -12,10 +12,38 @@
     </div>
   </div>
   <div class="table-responsive">
-    <x-alert type="info" message="Это информационное сообщение"></x-alert>
-    <x-alert type="danger" message="Это информационное сообщение"></x-alert>
-    <x-alert type="warning" message="Это информационное сообщение"></x-alert>
-    <x-alert type="success" message="Это информационное сообщение"></x-alert>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#ID</th>
+          <th>Заголовок</th>
+          <th>Автор</th>
+          <th>Статус</th>
+          <th>Описание</th>
+          <th>Дата добавления</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        @forelse ($newsList as $news)
+        <tr>
+          <td>{{ $news->id }}</td>
+          <td>{{ $news->title }}</td>
+          <td>{{ $news->author }}</td>
+          <td>{{ $news->status }}</td>
+          <td>{{ $news->description }}</td>
+          <td>{{ $news->created_at }}</td>
+          <td><a href="">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
+        </tr>            
+        @empty
+        <tr>
+          <td colspan="7">Записей нет</td>
+        </tr>            
+        @endforelse
+      </tbody>
+
+    </table>
+
   </div>
 
 @endsection
