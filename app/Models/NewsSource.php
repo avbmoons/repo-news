@@ -15,6 +15,14 @@ class NewsSource extends Model
 
     protected $table = 'news_sources';
 
+    protected $fillable = [
+        'title',
+        'url',
+        'status',
+        'description',
+        'image',
+    ];
+
     public function getNewsSource(): Collection
     {
         return DB::table($this->table)->select(['id', 'title', 'description', 'url', 'status', 'created_at', 'updated_at'])->get();
@@ -22,6 +30,6 @@ class NewsSource extends Model
 
     public function getNewsSourceById(int $id): mixed
     {
-        return DB::table($this->table)->find($id, ['id', 'title', 'url']);
+        return DB::table($this->table)->find($id, ['id', 'title', 'description', 'url', 'status', 'created_at', 'updated_at']);
     }
 }

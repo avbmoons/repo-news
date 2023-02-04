@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\CategoryStatus;
+use App\Enums\NewsSourceStatus;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\QueryBuilders\CategoriesQueryBuilder;
-use App\QueryBuilders\NewsQueryBuilder;
+use App\Models\NewsSource;
+use App\QueryBuilders\NewsSourcesQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class CategoryController extends Controller
+class NewsSourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,12 +21,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(
-        CategoriesQueryBuilder $categoriesQueryBuilder
+        NewsSourcesQueryBuilder $newsSourcesQueryBuilder
     ): View {
 
-        $categoriesList = $categoriesQueryBuilder->getCategoriesWithPagination();
+        $newsSourcesList = $newsSourcesQueryBuilder->getNewsSourcesWithPagination();
 
-        return \view('admin.categories.index', ['categoriesList' => $categoriesList]);
+        return \view('admin.newssources.index', ['newsSourcesList' => $newsSourcesList]);
     }
 
     /**
@@ -35,11 +34,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        $statuses = CategoryStatus::all();
+        $statuses = NewsSourceStatus::all();
 
-        return \view('admin.categories.create', [
+        return \view('admin.newssources.create', [
             'statuses' => $statuses,
         ]);
     }
@@ -50,18 +49,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'title' => 'required',
-            'slug' => 'required',
+            'url' => 'required',
         ]);
 
-        $categories = new Category($request->except('_token'));
+        $newssources = new NewsSource($request->except('_token'));
 
-        if ($categories->save()) {
-            return redirect()->route('admin.categories.index')
-                ->with('success', 'Категория успешно добавлена');
+        if ($newssources->save()) {
+            return redirect()->route('admin.newssources.index')
+                ->with('success', 'Новость успешно добавлена');
         }
         return \back()->with('error', 'Не удалось сохранить запись');
     }
@@ -83,12 +82,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category): View
+    public function edit(NewsSource $newssource)
     {
-        $statuses = CategoryStatus::all();
-
-        return \view('admin.categories.edit', [
-            'category' => $category,
+        $statuses = NewsSourceStatus::all();
+        return \view('admin.newssources.edit', [
+            'newssource' => $newssource,
             'statuses' => $statuses,
         ]);
     }
@@ -100,13 +98,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(Request $request, NewsSource $newssource): RedirectResponse
     {
-        $category = $category->fill($request->except('_token'));
+        $newssource = $newssource->fill($request->except('_token'));
 
-        if ($category->save()) {
-            return redirect()->route('admin.categories.index')
-                ->with('success', 'Категория успешно обновлена');
+        if ($newssource->save()) {
+            return redirect()->route('admin.newssources.index')
+                ->with('success', 'Источник успешно обновлен');
         }
         return \back()->with('error', 'Не удалось сохранить обновление');
     }
