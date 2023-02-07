@@ -16,11 +16,15 @@
         @csrf
         <div class="form-group">
             <label for="username">Ваше имя</label>
-            <input type="text" id="username" name="username" class="form-control" value="{{ old('username')}}">
+            <input type="text" id="username" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username')}}">
         </div>
         <div class="form-group">
             <label for="comment">Ваш комментарий</label>
-            <textarea class="form-control" name="comment" id="comment">{{ old('comment')}}</textarea>
+            <textarea class="form-control @error('comment') is-invalid @enderror" name="comment" id="comment">{{ old('comment')}}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="status">Статус</label>
+            <input type="text" id="status" name="status" class="form-control" value="{{'DRAFT'}}" readonly>
         </div>
         <br>
         <button type="submit" class="btn btn-success">Отправить</button>
@@ -29,4 +33,4 @@
 
 </div>
 
-@endsection
+@endsection('content')

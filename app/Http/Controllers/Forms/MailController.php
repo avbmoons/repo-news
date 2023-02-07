@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Forms;
 
+use App\Enums\MailStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Forms\Mails\CreateRequest;
+use App\Models\Mail;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +31,11 @@ class MailController extends Controller
      */
     public function create(): View
     {
-        return \view('forms.mail.create');
+        $statuses = MailStatus::all();
+
+        return \view('forms.mail.create', [
+            'statuses' => $statuses,
+        ]);
     }
 
     /**
@@ -35,19 +44,16 @@ class MailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'comment' => 'required',
-        ]);
+        $mails = Mail::create($request->validated());
 
-        $filename = 'filemail.json';
-        $response = response()->json($request->only(['username', 'comment']));
+        if ($mails->save()) {
+            return redirect()->route('about')
+                ->with('success', 'Сообщение успешно отправлено');
+        }
 
-        Storage::disk('local')->append($filename, $response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        return redirect()->route('about');
+        return \back()->with('error', 'Не удалось отправить сообщение');
     }
 
     /**

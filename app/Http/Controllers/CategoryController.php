@@ -9,6 +9,9 @@ use App\Models\Category;
 use App\Models\News;
 use App\Http\Controllers\CategoryTrait;
 use App\Http\Controllers\NewsTrait;
+use App\QueryBuilders\CategoriesQueryBuilder;
+use App\QueryBuilders\NewsQueryBuilder;
+use Illuminate\Contracts\View\View;
 
 class CategoryController extends Controller
 {

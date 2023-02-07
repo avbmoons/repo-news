@@ -8,22 +8,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\NewsTrait;
 use Illuminate\Contracts\View\View;
+use App\Models\News;
+use App\QueryBuilders\NewsQueryBuilder;
 
 class NewsController extends Controller
 {
 
-    use NewsTrait;
-
-    public function index(): View
+    public function index(NewsQueryBuilder $newsQueryBuilder): View
     {
-        $news = NewsTrait::getNews();
+        $newsList = $newsQueryBuilder->getAll();
 
-        return \view('news.index')->with('news', $news);
+        return \view('news.index', ['newsList' => $newsList]);
     }
 
-    public function show(int $id): View
+    public function show($id, News $news): View
     {
-        $news = NewsTrait::getNewsId($id);
-        return \view('news.show', [$id])->with('news', $news);
+
+        return \view('news.show')->with('news', $news->getNewsById($id));
     }
 }

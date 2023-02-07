@@ -37,13 +37,13 @@ class IndexController extends Controller
         return view('admin.about');
     }
 
-    // public function test1()
-    // {
-    //     return view('admin.test1');
-    // }
+    public function mails()
+    {
+        return view('admin.mails');
+    }
 
-    // public function test2()
-    // {
-    //     return view('admin.test2');
-    // }
+    public function orders()
+    {
+        return view('admin.orders');
+    }
 }

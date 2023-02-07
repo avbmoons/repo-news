@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Forms;
 
+use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Forms\Orders\CreateRequest;
+use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +31,11 @@ class OrderController extends Controller
      */
     public function create(): View
     {
-        return \view('forms.order.create');
+        $statuses = OrderStatus::all();
+
+        return \view('forms.order.create', [
+            'statuses' => $statuses,
+        ]);
     }
 
     /**
@@ -35,19 +44,15 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'useremail' => 'required',
-            'orderinfo' => 'required',
-        ]);
+        $orders = Order::create($request->validated());
 
-        $filename = 'fileorder.json';
-        $response = response()->json($request->only(['username', 'useremail', 'orderinfo']));
-        Storage::disk('local')->append($filename, $response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        return redirect()->route('about');
+        if ($orders->save()) {
+            return redirect()->route('about')
+                ->with('success', 'Заявка успешно отправлена');
+        }
+        return \back()->with('error', 'Не удалось отправить заявку');
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use App\Models\News;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,7 +18,10 @@ class NewsControllerTest extends TestCase
      */
     public function testIndexSuccessStatus(): void
     {
-        $response = $this->get('admin.news.index');
+        $news = News::factory()->definition();
+
+        //$response = $this->get('admin.news.index');
+        $response = $this->post(route('admin.news.store'), $news);
 
         $response->assertStatus(200);
     }
