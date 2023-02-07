@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use Illuminate\Support\Collection;
 
 trait NewsTrait
 {
 
-    public static function getNews(): array
+    public static function getNews(): Collection
     {
-        return News::newsGen();
+        //return News::newsGen();
+        return News::getNews();
     }
 
     public static function getNewsId($id): ?array

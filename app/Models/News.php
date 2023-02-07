@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class News extends Model
 {
@@ -13,18 +19,52 @@ class News extends Model
 
     protected $table = 'news';
 
-    //public function getNews(): array
-    public function getNews(): Collection
+    protected $fillable = [
+        'title',
+        'author',
+        'status',
+        'description',
+        'image',
+        'source_id'
+    ];
+
+    protected $casts = [
+        'category_ids' => 'array',
+    ];
+
+    protected function author(): Attribute
     {
-        //return DB::select("select id, title, author, status, description, created_at from {$this->table}");
-        return DB::table($this->table)->select(['id', 'title', 'author', 'status', 'description', 'created_at', 'source_id'])->get();
+        return Attribute::make(
+            get: fn ($value): string => strtoupper($value),
+            set: fn ($value): string => strtolower($value),
+        );
     }
 
-    public function getNewsById(int $id): mixed
+    public function categories(): BelongsToMany
     {
-        //return DB::selectOne("select id, title, author, status, description, created_at from {$this->table} where id = :id", [
-        //  'id' => $id
-        //]);
-        return DB::table($this->table)->find($id, ['id', 'title', 'author', 'source_id']);
+        return $this->belongsToMany(Category::class, 'category_has_news', 'news_id', 'category_id', 'id', 'id');
+    }
+
+    public function getNews(): Collection
+    {
+        return DB::table($this->table)->select(['id', 'title', 'author', 'status', 'description', 'created_at', 'updated_at', 'source_id'])->get();
+    }
+
+    public function getNewsById($id): mixed
+    {
+        return DB::table($this->table)->find($id, ['id', 'title', 'author', 'status', 'description', 'created_at', 'updated_at', 'source_id']);
+    }
+
+
+    public function getNewsByCategorySlug($slug): array
+    {
+        $id = $this->category->getCategoryIdBySlug($slug);
+        $news = [];
+        foreach ($this->getNews() as $item) {
+            if ($item['category_id'] == $id) {
+                $news[] = $item;
+            }
+        }
+        return $news;
     }
 }
