@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -15,7 +17,10 @@ class NewsController extends Controller
      */
     public function index(): View
     {
-        return \view('admin.news.index');
+        $model = new News();
+        $newsList = $model->getNews();
+
+        return \view('admin.news.index', ['newsList' => $newsList]);
     }
 
     /**
@@ -26,8 +31,6 @@ class NewsController extends Controller
     public function create(): View
     {
         return \view('admin.news.create');
-        // $render = \view('admin.news.create');
-        // dd($render);
     }
 
     /**
@@ -43,7 +46,6 @@ class NewsController extends Controller
             'author' => 'required',
         ]);
         return response()->json($request->only(['title', 'author', 'description']));
-        //dd($request->all());
     }
 
     /**

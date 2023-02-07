@@ -2,69 +2,24 @@
 
 namespace App\Models;
 
-class Category
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+
+class Category extends Model
 {
-    private array $categories = [
-        1 => [
-            'id' => 1,
-            'title' => 'Спорт',
-            'slug' => 'sport',
-        ],
-        2 => [
-            'id' => 2,
-            'title' => 'Политика',
-            'slug' => 'politics',
-        ],
-        3 => [
-            'id' => 3,
-            'title' => 'Экология',
-            'slug' => 'ecology',
-        ],
-        4 => [
-            'id' => 4,
-            'title' => 'Экономика',
-            'slug' => 'economy',
-        ],
-        5 => [
-            'id' => 5,
-            'title' => 'Искусство',
-            'slug' => 'art',
-        ],
-    ];
+    use HasFactory;
 
-    public function getCategories(): array
+    protected $table = 'categories';
+
+    public function getCategories(): Collection
     {
-        return $this->categories;
+        return DB::table($this->table)->select(['id', 'title', 'slug', 'description', 'status', 'created_at', 'source_id'])->get();
     }
 
-    public function getCategoryIdBySlug($slug)
+    public function getCategoryById(int $id): mixed
     {
-        $id = null;
-        foreach ($this->getCategories() as $category) {
-            if ($category['slug'] == $slug) {
-                $id = $category['id'];
-                break;
-            }
-        }
-        return $id;
-    }
-
-    public function getCategoryNameBySlug($slug)
-    {
-        $id = $this->getCategoryIdBySlug($slug);
-        $category = $this->getCategoryById($id);
-        if ($category != [])
-            return $category['title'];
-        else return null;
-    }
-
-    public function getCategoryById($id)
-    {
-        foreach (static::getCategories() as $categories) {
-            if ($categories['id'] == $id) {
-                return $categories;
-            }
-        }
-        return null;
+        return DB::table($this->table)->find($id, ['id', 'title', 'slug']);
     }
 }
