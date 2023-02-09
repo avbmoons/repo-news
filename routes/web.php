@@ -3,6 +3,9 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\NewsSourceController as AdminNewsSourceController;
+use App\Http\Controllers\Admin\MailController as AdminMailController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Forms\MailController as MailController;
@@ -37,11 +40,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
 
     Route::resource('news', AdminNewsController::class);
 
+    Route::resource('newssources', AdminNewsSourceController::class);
+
     Route::get('/users', [AdminIndexController::class, 'users'])
         ->name('admin.users');
 
     Route::get('/about', [AdminIndexController::class, 'about'])
         ->name('admin.about');
+
+    Route::resource('mails', AdminMailController::class);
+
+    Route::resource('orders', AdminOrderController::class);
 });
 Route::group(['prefix' => 'about'], static function () {
 
@@ -69,4 +78,10 @@ Route::group(['prefix' => ''], static function () {
 
     Route::get('/category/{slug}', [CategoryController::class, 'show'])
         ->where(name: 'category_id', expression: '\d+')->name("category.show");
+});
+
+Route::get('collection', function () {
+    $names = ['Ann', 'John', 'Robby', 'Sam'];
+    $collect = \collect($names);
+    //dd($collect->map(fn ($item) => strtoupper($item))->sort());
 });

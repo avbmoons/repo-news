@@ -1,13 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Админка Новостей')
+@section('title', 'Админка Источников')
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">Админ. панель Новостей</h1>
+    <h1 class="h2">Админ. панель Источников новостей</h1>
     <div class="col-4 d-flex justify-content-end align-items-center">
-      <a class="btn btn-sm btn-outline-secondary" href="{{route('admin.news.create')}}">Добавить новость</a>
+      <a class="btn btn-sm btn-outline-secondary" href="{{route('admin.newssources.create')}}">Добавить источник</a>
     </div>
-
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
         <button class="btn btn-sm btn-outline-secondary">Share</button>
@@ -20,30 +19,26 @@
       <thead>
         <tr>
           <th>#ID</th>
-          <th>Категория</th>
           <th>Заголовок</th>
-          <th>Автор</th>
+          <th>Адрес</th>
           <th>Описание</th>
           <th>Дата добавления</th>
           <th>Дата изменения</th>
           <th>Статус</th>
-          <th>Источник</th>
           <th>Действия</th>
         </tr>
       </thead>
       <tbody>
-        @forelse ($newsList as $news)
+        @forelse ($newsSourcesList as $newsSource)
         <tr>
-          <td>{{ $news->id }}</td>
-          <td>{{ $news->categories->map(fn($item) => $item->title)->implode(", ") }}</td>
-          <td>{{ $news->title }}</td>
-          <td>{{ $news->author }}</td>
-          <td>{{ $news->description }}</td>
-          <td>{{ $news->created_at }}</td>
-          <td>{{ $news->updated_at }}</td>
-          <td>{{ $news->status }}</td>
-          <td>{{ $news->source_id }}</td>          
-          <td><a href="{{route('admin.news.edit', ['news' => $news])}}">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
+          <td>{{ $newsSource->id }}</td>
+          <td>{{ $newsSource->title }}</td>
+          <td>{{ $newsSource->url }}</td>
+          <td>{{ $newsSource->description }}</td>
+          <td>{{ $newsSource->created_at }}</td>
+          <td>{{ $newsSource->updated_at }}</td>
+          <td>{{ $newsSource->status }}</td>
+          <td><a href="{{route('admin.newssources.edit', $newsSource->id)}}">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
         </tr>            
         @empty
         <tr>
@@ -54,7 +49,7 @@
 
     </table>
 
-    {{ $newsList->links() }}
+    {{ $newsSourcesList->links() }}
 
   </div>
 
