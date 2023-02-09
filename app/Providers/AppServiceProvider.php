@@ -11,6 +11,7 @@ use App\QueryBuilders\CategoriesQueryBuilder;
 use App\QueryBuilders\QueryBuilder;
 use App\QueryBuilders\NewsQueryBuilder;
 use App\QueryBuilders\NewsSourcesQueryBuilder;
+use App\QueryBuilders\UsersQueryBuilder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(QueryBuilder::class, NewsQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, MailsQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, OrdersQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, UsersQueryBuilder::class);
     }
 
     /**

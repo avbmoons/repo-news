@@ -71,7 +71,7 @@ class MailController extends Controller
      */
     public function edit(Mail $mail)
     {
-        $statuses = Mail::all();
+        $statuses = MailStatus::all();
         return \view('admin.mails.edit', [
             'mail' => $mail,
             'statuses' => $statuses,

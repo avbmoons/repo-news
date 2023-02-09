@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             'username' => ['required', 'string', 'min:2', 'max:200'],
             'userphone' => ['sometimes'],
             'usermail' => ['required', 'string', 'min:5', 'max:200'],
-            'orderinfo' => ['requires', 'string', 'min:5'],
+            'orderinfo' => ['required', 'string', 'min:5'],
         ];
     }
 }

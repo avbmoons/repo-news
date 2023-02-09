@@ -26,8 +26,8 @@ class EditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'news_ids' => ['required', 'array'],
-            'news_ids.*' => ['exists:news,id'],
+            // 'news_ids' => ['required', 'array'],
+            // 'news_ids.*' => ['exists:news,id'],
             'title' => ['required', 'string', 'min:5', 'max:200'],
             'slug' => ['required', 'string', 'min:2', 'max:200'],
             'image' => ['sometimes'],

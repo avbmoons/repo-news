@@ -13,7 +13,7 @@
         <x-alert type="danger" :message="$error"></x-alert>
         @endforeach
     @endif
-    <form method="POST" action="{{route('mail.store'), ['mail' => $mail]}}">
+    <form method="POST" action="{{route('admin.mails.update', ['mail' => $mail])}}">
         @method('put')
         @csrf
         <div class="form-group">

@@ -37,7 +37,7 @@
           <td>{{ $order->created_at }}</td>
           <td>{{ $order->updated_at }}</td>
           <td>{{ $order->status }}</td>
-          <td><a href="{{route('admin.orders.show', $order->id)}}">См.</a> &nbsp; <a href="{{route('admin.orders.edit', $order->id)}}">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
+          <td><a href="{{route('admin.orders.show', $order->id)}}">См.</a> &nbsp; <a href="{{route('admin.orders.edit', $order->id)}}">Изм.</a> &nbsp; <a href="javascript:;" class="delete" rel="{{ $order->id }}" style=" color: red;">Уд.</a></td>
         </tr>            
         @empty
         <tr>

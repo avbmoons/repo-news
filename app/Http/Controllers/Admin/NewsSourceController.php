@@ -53,6 +53,7 @@ class NewsSourceController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
+        //$newssources = new NewsSource($request->except('_token'));
         $newssources = NewsSource::create($request->validated());
 
         if ($newssources->save()) {
@@ -70,7 +71,8 @@ class NewsSourceController extends Controller
      */
     public function show($id)
     {
-        //
+        $newssource = NewsSource::findOrFail($id);
+        return \view('admin.orders.show', ['newssource' => $newssource]);
     }
 
     /**

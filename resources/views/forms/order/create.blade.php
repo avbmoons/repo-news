@@ -23,8 +23,8 @@
         <input type="text" id="userphone" name="userphone" class="form-control @error('userphone') is-invalid @enderror" value="{{ old('userphone')}}">
     </div>
     <div class="form-group">
-        <label for="useremail">Ваш e-mail</label>
-        <input type="text" id="useremail" name="useremail" class="form-control @error('usermail') is-invalid @enderror" value="{{ old('useremail')}}">
+        <label for="usermail">Ваш e-mail</label>
+        <input type="text" id="usermail" name="usermail" class="form-control @error('usermail') is-invalid @enderror" value="{{ old('usermail')}}">
     </div>
     <div class="form-group">
         <label for="orderinfo">Что выгрузить?</label>

@@ -13,7 +13,7 @@
             <x-alert type="danger" :message="$error"></x-alert>                       
         @endforeach
     @endif
-<form method="POST" action="{{route('order.store', ['order' => $order])}}">
+<form method="POST" action="{{route('admin.orders.update', ['order' => $order])}}">
     @method('put')
     @csrf
     <div class="form-group">Пользователь</label>
@@ -24,8 +24,8 @@
         <input type="text" id="userphone" name="userphone" class="form-control @error('userphone') is-invalid @enderror" value="{{ $order->userphone }}">
     </div>
     <div class="form-group">
-        <label for="useremail">E-mail</label>
-        <input type="text" id="useremail" name="useremail" class="form-control @error('usermail') is-invalid @enderror" value="{{ $order->useremail }}">
+        <label for="usermail">E-mail</label>
+        <input type="text" id="usermail" name="usermail" class="form-control @error('usermail') is-invalid @enderror" value="{{ $order->usermail }}">
     </div>
     <div class="form-group">
         <label for="orderinfo">Что выгрузить?</label>

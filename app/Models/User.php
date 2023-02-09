@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -40,5 +42,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
+
+    public function getUser(): Collection
+    {
+        return DB::table($this->table)->select(['id', 'is_admin', 'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at', 'status', 'image'])->get();
+    }
+
+    public function getUserById(int $id): mixed
+    {
+        return DB::table($this->table)->find($id, ['id', 'is_admin', 'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at', 'status', 'image']);
+    }
 }

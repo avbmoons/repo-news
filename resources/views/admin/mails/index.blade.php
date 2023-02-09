@@ -33,7 +33,7 @@
           <td>{{ $mail->created_at }}</td>
           <td>{{ $mail->updated_at }}</td>
           <td>{{ $mail->status }}</td>
-          <td><a href="{{route('admin.mails.show', $mail->id)}}">См.</a> &nbsp; <a href="{{route('admin.mails.edit', $mail->id)}}">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
+          <td><a href="{{route('admin.mails.show', $mail->id)}}">См.</a> &nbsp; <a href="{{route('admin.mails.edit', $mail->id)}}">Изм.</a> &nbsp; <a href="javascript:;" class="delete" rel="{{ $mail->id }}" style=" color: red;">Уд.</a></td>
         </tr>            
         @empty
         <tr>

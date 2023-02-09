@@ -38,7 +38,7 @@
           <td>{{ $newsSource->created_at }}</td>
           <td>{{ $newsSource->updated_at }}</td>
           <td>{{ $newsSource->status }}</td>
-          <td><a href="{{route('admin.newssources.edit', $newsSource->id)}}">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
+          <td><a href="{{route('admin.newssources.edit', $newsSource->id)}}">Изм.</a> &nbsp; <a href="javascript:;" class="delete" rel="{{ $newsSource->id }}" style=" color: red;">Уд.</a></td>
         </tr>            
         @empty
         <tr>

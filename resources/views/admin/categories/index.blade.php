@@ -38,7 +38,7 @@
           <td>{{ $category->created_at }}</td>
           <td>{{ $category->updated_at }}</td>
           <td>{{ $category->status }}</td>
-          <td><a href="{{route('admin.categories.edit', $category->id)}}">Изм.</a> &nbsp; <a href="" style=" color: red;">Уд.</a></td>
+          <td><a href="{{route('admin.categories.edit', $category->id)}}">Изм.</a> &nbsp; <a href="javascript:;" class="delete" rel="{{ $category->id }}" style=" color: red;">Уд.</a></td>
         </tr>            
         @empty
         <tr>
