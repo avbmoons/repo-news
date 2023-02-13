@@ -45,6 +45,10 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
+    protected $dates = [
+        'last_login_at'
+    ];
+
     public function getUser(): Collection
     {
         return DB::table($this->table)->select(['id', 'is_admin', 'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at', 'status', 'image'])->get();

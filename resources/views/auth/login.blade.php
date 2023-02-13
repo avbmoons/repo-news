@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
+                <div class="card-body">                    
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -66,6 +66,14 @@
                         </div>
                     </form>
                 </div>
+                <div class="card-header">
+                    <div class="nav d-flex justify-content-between">                                        
+                        <a href="{{ route('social.auth.redirect', ['driver' => 'github']) }}"><strong>Вход через GitHub</strong></a>
+                        <a href="{{ route('social.auth.redirect', ['driver' => 'vkontakte']) }}"><strong>Вход через VKontakte</strong></a>
+                        <a href="{{ route('social.auth.redirect', ['driver' => 'yandex']) }}"><strong>Вход через Yandex</strong></a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

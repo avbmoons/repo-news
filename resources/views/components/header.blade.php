@@ -4,7 +4,11 @@
         <a class="blog-header-logo text-dark" href="#">Новостной портал</a>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="btn btn-sm btn-outline-secondary" href="#">Вход на сайт</a>
+        @if(Auth::user()->name == null)        
+        <a class="btn btn-sm btn-outline-secondary" href="{{ route('account.login') }}">Вход на сайт</a>
+        @else
+        <a class="btn btn-sm btn-outline-secondary" href="{{ route('account.logout') }}">Выход</a>
+        @endif
       </div>
     </div>
 </header>

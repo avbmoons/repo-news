@@ -5,7 +5,8 @@
 @section('content')
 
  <div>
-    <h2>Новости категории {{ $category }}</h2>
+    {{-- <h2>Новости категории {{ $category }}</h2> --}}
+    <h2>Новости категории...</h2>
  </div>
  <br>
 
@@ -25,12 +26,14 @@
           </div>
           <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap">
         </div>
-      </div>
+      </div>    
     
     @empty
         <h2>Новостей нет</h2>
     @endforelse
 </div> 
-
+      <nav class="blog-pagination">
+        <a class="btn btn-outline-primary" href="{{route('category.index')}}">Назад к списку категорий</a>
+      </nav>
 @endsection
 

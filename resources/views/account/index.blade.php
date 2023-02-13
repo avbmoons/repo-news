@@ -1,11 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+@section('title', 'Главная')
+
+{{-- @section('title,' 'Главная') --}}
+
 @section('content')
 
 <div class="col-8 offset-2">
-   <h2>Добро пожаловать, {{ Auth::user()->name }}</h2>
+   <h3>Добро пожаловать в агрегатор новостей, {{ Auth::user()->name }} !</h3>
+    <br>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ut qui consequatur explicabo aspernatur dolorum error labore nemo ullam. Ab quisquam officiis corrupti harum reprehenderit sunt praesentium nemo voluptatum omnis.</p>
     <br>
     {{-- <a href="{{ route('admin.index')}}">В админку</a> 
     <a href="{{ route('account')}}">В админку</a>--}}
+    @if(Auth::user(->avatar))
+        <img src="{{ Auth::user()->avatar }}" style="width:200px;">
+    @endif
+    <br>
     @if(Auth::user()->is_admin == true)
         <a href="{{ route('admin.admin')}}">В админку</a> 
     @endif

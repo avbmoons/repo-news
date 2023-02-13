@@ -3,7 +3,10 @@
     <a class="p-2 text-muted" href="{{ route('home') }}">Главная</a>
     <a class="p-2 text-muted" href="{{ route('category.index') }}">Категории новостей</a>
     <a class="p-2 text-muted" href="{{ route('news') }}">Все новости</a>
-    <a class="p-2 text-muted" href="{{ route('admin.admin') }}">Админка</a>
+    @if(Auth::user()->is_admin == true)
+        <a class="p-2 text-muted" href="{{ route('admin.admin') }}">Админка</a>
+    @endif
+    {{-- <a class="p-2 text-muted" href="{{ route('admin.admin') }}">Админка</a> --}}
     <a class="p-2 text-muted" href="{{ route('about') }}">О проекте</a>
     </nav>
 
