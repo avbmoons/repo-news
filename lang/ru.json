@@ -9,7 +9,9 @@
     "Forgot Your Password?": "Забыли пароль?",
     "Logout": "Выход",
     "Reset Password": "Изменить пароль",
-    "Send Password Reset Link": "Отправить ссылку для изменения пароля"
+    "Send Password Reset Link": "Отправить ссылку для изменения пароля",
+    "Previous": "Предыдущая",
+    "Next": "Следующая"
 
 
 }

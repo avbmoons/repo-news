@@ -13,7 +13,7 @@
         <x-alert type="danger" :message="$error"></x-alert>
         @endforeach
     @endif
-    <form method="POST" action="{{route('admin.mails.update', ['mail' => $mail])}}">
+    <form method="POST" action="{{route('admin.mails.update', ['mail' => $mail])}}" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="form-group">
@@ -40,3 +40,16 @@
 </div>
 
 @endsection('content')
+
+@push('js')
+
+  <script src="{{asset('assets/js/ckeditor.js')}}"></script>
+    <script>
+    ClassicEditor
+        .create( document.querySelector( '#comment' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+  </script>
+
+@endpush

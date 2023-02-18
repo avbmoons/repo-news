@@ -101,7 +101,7 @@ class CategoryController extends Controller
     {
         $category = $category->fill($request->validated());
 
-        if ($category->save()) {
+        if ($category->update()) {
             return redirect()->route('admin.categories.index')
                 ->with('success', 'Категория успешно обновлена');
         }

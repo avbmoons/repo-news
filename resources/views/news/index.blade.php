@@ -15,13 +15,18 @@
             <div class="mb-1 text-muted">{{$news['created_at']}}</div>
             <p class="card-text mb-auto">{{$news['description']}}</p>
             <a href="{{route('newsId', ['id' => $news['id']])}}">Подробнее...</a>
-          </div>
-          <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap">
+          </div>         
+           {{--<img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap"> --}}
+           {{-- <img class="card-img-right flex-auto d-none d-md-block" data-src="{{ Storage::disk('public')->url($news->image) }}" alt="Card image cap"> --}}
+           <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap" src="{{ Storage::disk('public')->url($news->image) }}">
         </div>
       </div>
     @empty
         <h2>Новостей нет</h2>
     @endforelse
+
+    {{ $newsList->links() }}
+
 </div>    
 @endsection
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EditorController;
 use App\Http\Controllers\SocialProvidersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;

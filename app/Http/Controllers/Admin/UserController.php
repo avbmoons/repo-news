@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         $user = $user->fill($request->validated());
 
-        if ($user->save()) {
+        if ($user->update()) {
             return redirect()->route('admin.users.index')
                 ->with('success', 'Профиль успешно обновлен');
         }

@@ -13,7 +13,7 @@
     <br>
     {{-- <a href="{{ route('admin.index')}}">В админку</a> 
     <a href="{{ route('account')}}">В админку</a>--}}
-    @if(Auth::user(->avatar))
+    @if(Auth::user()->avatar)
         <img src="{{ Auth::user()->avatar }}" style="width:200px;">
     @endif
     <br>

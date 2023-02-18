@@ -19,6 +19,7 @@
 
             <p>{{$news->description}}</p>
             <hr>
+            <img src="{{ Storage::disk('public')->url($news->image) }}">
           </div><!-- /.blog-post -->
 
           <nav class="blog-pagination">

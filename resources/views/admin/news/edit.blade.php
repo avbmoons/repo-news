@@ -21,7 +21,7 @@
             <x-alert type="danger" :message="$error"></x-alert>                       
         @endforeach
     @endif
-    <form method="POST" action="{{route('admin.news.update', ['news' => $news])}}">
+    <form method="POST" action="{{route('admin.news.update', ['news' => $news])}}" enctype="multipart/form-data">
       @method('put')
         @csrf
         <div class="form-group">
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group">
             <label for="description">Описание</label>
-            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description">{!! $news->description !!}</textarea>
+             <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description">{!! $news->description !!}</textarea> 
         </div>
         <div class="form-group">
           <label for="source_id">Источник</label>
@@ -67,4 +67,21 @@
 
     </form>
   </div>
+
 @endsection('content')
+
+  @push('js')
+
+   {{-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>  --}}
+  {{--<script src="{{asset('public/ckeditor/ckeditor.js')}}"></script>--}}
+   <script src="{{asset('assets/js/ckeditor.js')}}"></script> 
+  <script>
+    ClassicEditor
+        // .create( document.querySelector( '#editor' ) )
+        .create( document.querySelector( '#description' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+  </script>
+
+  @endpush

@@ -54,3 +54,17 @@
     </form>
   </div>
 @endsection('content')
+
+@push('js')
+
+  <script src="{{asset('assets/js/ckeditor.js')}}"></script>
+    <script>
+    ClassicEditor
+        // .create( document.querySelector( '#editor' ) )
+        .create( document.querySelector( '#description' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+  </script>
+
+@endpush

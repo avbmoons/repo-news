@@ -25,11 +25,11 @@ class NewsSource extends Model
 
     public function getNewsSource(): Collection
     {
-        return DB::table($this->table)->select(['id', 'title', 'description', 'url', 'status', 'created_at', 'updated_at'])->get();
+        return DB::table($this->table)->select(['id', 'title', 'description', 'url', 'status', 'created_at', 'updated_at', 'image'])->get();
     }
 
     public function getNewsSourceById(int $id): mixed
     {
-        return DB::table($this->table)->find($id, ['id', 'title', 'description', 'url', 'status', 'created_at', 'updated_at']);
+        return DB::table($this->table)->find($id, ['id', 'title', 'description', 'url', 'status', 'created_at', 'updated_at', 'image']);
     }
 }

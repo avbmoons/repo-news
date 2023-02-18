@@ -11,6 +11,10 @@
 
     <!-- Custom styles for this template -->
     <link href="{{asset('assets/css/dashboard.css')}}" rel="stylesheet">
+
+    <!-- Make sure the path to CKEditor is correct. -->
+    {{-- <script src="node_modules/ckeditor4/ckeditor.js"></script> --}}
+    {{-- "node_modules\ckeditor4\ckeditor.js" --}}
   </head>
 
   <body>    
