@@ -35,12 +35,12 @@ class Category extends Model
 
     public function getCategories(): Collection
     {
-        return DB::table($this->table)->select(['id', 'title', 'slug', 'description', 'status', 'created_at', 'updated_at'])->get();
+        return DB::table($this->table)->select(['id', 'title', 'slug', 'description', 'status', 'created_at', 'updated_at', 'image'])->get();
     }
 
     public function getCategoryById(int $id): mixed
     {
-        return DB::table($this->table)->find($id, ['id', 'title', 'slug', 'description', 'status', 'created_at', 'updated_at']);
+        return DB::table($this->table)->find($id, ['id', 'title', 'slug', 'description', 'status', 'created_at', 'updated_at', 'image']);
     }
 
     public function getCategoryIdBySlug($slug): mixed

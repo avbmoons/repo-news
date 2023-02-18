@@ -47,12 +47,12 @@ class News extends Model
 
     public function getNews(): Collection
     {
-        return DB::table($this->table)->select(['id', 'title', 'author', 'status', 'description', 'created_at', 'updated_at', 'source_id'])->get();
+        return DB::table($this->table)->select(['id', 'title', 'author', 'status', 'description', 'created_at', 'updated_at', 'source_id', 'image'])->get();
     }
 
     public function getNewsById($id): mixed
     {
-        return DB::table($this->table)->find($id, ['id', 'title', 'author', 'status', 'description', 'created_at', 'updated_at', 'source_id']);
+        return DB::table($this->table)->find($id, ['id', 'title', 'author', 'status', 'description', 'created_at', 'updated_at', 'source_id', 'image']);
     }
 
 

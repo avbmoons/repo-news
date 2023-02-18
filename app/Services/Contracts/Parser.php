@@ -9,4 +9,6 @@ interface Parser
     public function setLink(string $link): self;
 
     public function getParseData(): array;
+
+    public function saveParseData(): void;
 }

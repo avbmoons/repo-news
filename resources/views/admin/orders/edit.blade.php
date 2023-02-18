@@ -13,7 +13,7 @@
             <x-alert type="danger" :message="$error"></x-alert>                       
         @endforeach
     @endif
-<form method="POST" action="{{route('admin.orders.update', ['order' => $order])}}">
+<form method="POST" action="{{route('admin.orders.update', ['order' => $order])}} " enctype="multipart/form-data">
     @method('put')
     @csrf
     <div class="form-group">Пользователь</label>
@@ -47,4 +47,17 @@
 </div>
 
 @endsection('content')
+
+@push('js')
+
+  <script src="{{asset('assets/js/ckeditor.js')}}"></script>
+    <script>
+    ClassicEditor
+        .create( document.querySelector( '#orderinfo' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+  </script>
+
+@endpush
 

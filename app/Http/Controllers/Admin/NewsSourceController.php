@@ -101,7 +101,7 @@ class NewsSourceController extends Controller
     {
         $newssource = $newssource->fill($request->validated());
 
-        if ($newssource->save()) {
+        if ($newssource->update()) {
             return redirect()->route('admin.newssources.index')
                 ->with('success', 'Источник успешно обновлен');
         }

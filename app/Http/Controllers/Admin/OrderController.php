@@ -94,7 +94,7 @@ class OrderController extends Controller
         //$order = $order->fill($request->except('_token'));
         $order = $order->fill($request->validated());
 
-        if ($order->save()) {
+        if ($order->update()) {
             return redirect()->route('admin.orders.index')
                 ->with('success', 'Заявка успешно обновлена');
         }

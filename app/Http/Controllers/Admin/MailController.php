@@ -89,7 +89,7 @@ class MailController extends Controller
     {
         $mail = $mail->fill($request->validated());
 
-        if ($mail->save()) {
+        if ($mail->update()) {
             return redirect()->route('admin.mails.index')
                 ->with('success', 'Сообщение успешно обновлено');
         }
